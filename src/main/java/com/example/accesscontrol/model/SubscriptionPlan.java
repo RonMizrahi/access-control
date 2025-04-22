@@ -4,11 +4,12 @@ import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Refill;
 import java.time.Duration;
 
+// Can be injected
 public enum SubscriptionPlan {
     FREE {
         @Override
         public Bandwidth getLimit() {
-            return Bandwidth.classic(20, Refill.intervally(20, Duration.ofHours(1)));
+            return Bandwidth.classic(2, Refill.intervally(1, Duration.ofMinutes(1)));
         }
     },
     BASIC {

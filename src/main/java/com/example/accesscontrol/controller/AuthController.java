@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.accesscontrol.config.IAdminRole;
+import com.example.accesscontrol.config.IUserRole;
 import com.example.accesscontrol.model.LoginReq;
 import com.example.accesscontrol.service.AuthService;
 
@@ -32,8 +33,21 @@ public class AuthController {
         }
     }
 
+    // naive solution, to allow only admins get to this API
     @IAdminRole
-    @GetMapping("/roles")
+    @GetMapping("/admin-roles")
+    public ResponseEntity<?> getAdminRoles(Authentication authentication) {
+        if (authentication == null || authentication.getAuthorities() == null) {
+            return ResponseEntity.status(403).body(Map.of("error", "Forbidden"));
+        }
+        return ResponseEntity.ok(Map.of(
+                "username", authentication.getName(),
+                "roles", authentication.getAuthorities().stream().map(Object::toString).toArray()));
+    }
+
+    // naive solution, to allow only users get to this API
+    @IUserRole
+    @GetMapping("/user-roles")
     public ResponseEntity<?> getUserRoles(Authentication authentication) {
         if (authentication == null || authentication.getAuthorities() == null) {
             return ResponseEntity.status(403).body(Map.of("error", "Forbidden"));
