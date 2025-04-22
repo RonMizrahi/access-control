@@ -1,4 +1,4 @@
-package com.interceptor;
+package com.example.accesscontrol.interceptor;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,8 +34,7 @@ public class RateLimitInterceptor implements HandlerInterceptor {
             String username = userDetails.getUsername();
             User user = userRepository.findByUsername(username).orElse(null);
             if (user != null) {
-                String plan = user.getSubscriptionPlan();
-                SubscriptionPlan subscriptionPlan = getSubscriptionPlan(plan);
+                SubscriptionPlan subscriptionPlan = user.getSubscriptionPlan();
                 Bucket bucket = userBuckets.computeIfAbsent(username, k -> createBucket(subscriptionPlan));
                 if (!bucket.tryConsume(1)) {
                     response.setStatus(429);
@@ -45,14 +44,6 @@ public class RateLimitInterceptor implements HandlerInterceptor {
             }
         }
         return true;
-    }
-
-    private SubscriptionPlan getSubscriptionPlan(String plan) {
-        try {
-            return SubscriptionPlan.valueOf(plan.toUpperCase());
-        } catch (Exception e) {
-            return SubscriptionPlan.FREE;
-        }
     }
 
     private Bucket createBucket(SubscriptionPlan plan) {

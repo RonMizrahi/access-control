@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.accesscontrol.config.IAdminRole;
+import com.example.accesscontrol.model.LoginReq;
 import com.example.accesscontrol.service.AuthService;
 
 @RestController
@@ -22,11 +23,9 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> request) {
-        String username = request.get("username");
-        String password = request.get("password");
+    public ResponseEntity<?> login(@RequestBody LoginReq req) {
         try {
-            String token = authService.login(username, password);
+            String token = authService.login(req.username(), req.password());
             return ResponseEntity.ok(Map.of("token", token));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(401).body(Map.of("error", "Invalid credentials"));
