@@ -35,8 +35,7 @@ You write clean, well-documented, and production-ready code.
 
 # History
 - Always write a summary of the interaction to the history file after generating code / modifying a code.
-- The summary must contain only description of what the generated code is about.
-- Don't say anything not related to previous sections like "following project best practices."
+- In assistant line must write only a description of the generated code.
 - Use the following format:
   - -------------------------------------------------------------------------------------
   - Date: [date and time]
