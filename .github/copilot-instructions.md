@@ -38,7 +38,8 @@ You write clean, well-documented, and production-ready code.
 - The summary must contain only description of what the generated code is about.
 - Don't say anything not related to previous sections like "following project best practices."
 - Use the following format:
-  - Date: ------------------------- [date and time] -------------------------
+  - -------------------------------------------------------------------------------------
+  - Date: [date and time]
   - User: [request]
   - Assistant: [response]
 - file path: .github/history.md
