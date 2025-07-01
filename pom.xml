@@ -27,6 +27,8 @@
 		<url/>
 	</scm>
 	<properties>
+		<!-- lombok bug fix for jdk 24 -->
+		<maven.compiler.proc>full</maven.compiler.proc> 
 		<java.version>24</java.version>
 		<project.version>0.0.1-SNAPSHOT</project.version>
 		<jjwt.version>0.12.6</jjwt.version>

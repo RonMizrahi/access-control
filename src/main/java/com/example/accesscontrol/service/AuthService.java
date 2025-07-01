@@ -22,10 +22,12 @@ public class AuthService {
 
     public String login(String username, String password) {
         Optional<User> userOpt = userRepository.findByUsername(username);
-        if (userOpt.isPresent() && passwordEncoder.matches(password, userOpt.get().getPassword())) {
+        if (userOpt.isPresent()) {
             User user = userOpt.get();
-            String token = jwtUtil.generateToken(user.getUsername(), user.getRoles());
-            return token;
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                String token = jwtUtil.generateToken(user.getUsername(), user.getRoles());
+                return token;
+            }
         }
         throw new BadCredentialsException("Invalid username or password");
     }

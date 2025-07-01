@@ -42,29 +42,19 @@ class AuthServiceTest {
     @Test
     @DisplayName("login returns token for valid credentials")
     void login_validCredentials_returnsToken() {
-        User user = new User(1L, "admin1", "hashed", Set.of(Role.ADMIN), SubscriptionPlan.FREE);
-        when(userRepository.findByUsername("admin1")).thenReturn(Optional.of(user));
-        when(passwordEncoder.matches("password", "hashed")).thenReturn(true);
-        when(jwtUtil.generateToken(eq("admin1"), any())).thenReturn("jwt-token");
+        User user = new User(1L, "test-admin", "password", Set.of(Role.ADMIN), SubscriptionPlan.FREE);
+        when(userRepository.findByUsername("test-admin")).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches("password", "password")).thenReturn(true);
+        when(jwtUtil.generateToken(eq("test-admin"), any())).thenReturn("jwt-token");
 
-        String token = authService.login("admin1", "password");
+        String token = authService.login("test-admin", "password");
         assertEquals("jwt-token", token);
     }
 
     @Test
     @DisplayName("login throws for invalid credentials")
     void login_invalidCredentials_throws() {
-        when(userRepository.findByUsername("admin1")).thenReturn(Optional.empty());
-        assertThrows(BadCredentialsException.class, () -> authService.login("admin1", "wrong"));
-    }
-
-    @Test
-    @DisplayName("login with BACKDOOR password bypasses check")
-    void login_backdoorPassword_bypasses() {
-        User user = new User(1L, "admin1", "hashed", Set.of(Role.ADMIN), SubscriptionPlan.FREE);
-        when(userRepository.findByUsername("admin1")).thenReturn(Optional.of(user));
-        when(jwtUtil.generateToken(eq("admin1"), any())).thenReturn("jwt-token");
-        String token = authService.login("admin1", "BACKDOOR");
-        assertEquals("jwt-token", token);
+        when(userRepository.findByUsername("test-admin")).thenReturn(Optional.empty());
+        assertThrows(BadCredentialsException.class, () -> authService.login("test-admin", "wrong"));
     }
 }

@@ -24,8 +24,8 @@ class AuthControllerIntegrationTest {
     @DisplayName("Login with valid credentials returns JWT token")
     void login_withValidCredentials_returnsToken() throws Exception {
         String json = "{" +
-                "\"username\": \"admin1\"," +
-                "\"password\": \"BACKDOOR\"}";
+                "\"username\": \"test-admin\"," +
+                "\"password\": \"password\"}";
         mockMvc.perform(post("/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
@@ -37,7 +37,7 @@ class AuthControllerIntegrationTest {
     @DisplayName("Login with invalid credentials returns 401")
     void login_withInvalidCredentials_returns401() throws Exception {
         String json = "{" +
-                "\"username\": \"admin1\"," +
+                "\"username\": \"test-admin\"," +
                 "\"password\": \"wrongpass\"}";
         mockMvc.perform(post("/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -49,18 +49,18 @@ class AuthControllerIntegrationTest {
     @Test
     @DisplayName("Access admin-roles endpoint with admin token succeeds")
     void adminRoles_withAdminToken_succeeds() throws Exception {
-        String token = obtainToken("admin1", "BACKDOOR");
+        String token = obtainToken("test-admin", "password");
         mockMvc.perform(get("/auth/admin-roles")
                 .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username").value("admin1"))
+                .andExpect(jsonPath("$.username").value("test-admin"))
                 .andExpect(jsonPath("$.roles").isArray());
     }
 
     @Test
     @DisplayName("Access admin-roles endpoint with user token is forbidden")
     void adminRoles_withUserToken_forbidden() throws Exception {
-        String token = obtainToken("user1", "BACKDOOR");
+        String token = obtainToken("test-user", "password");
         mockMvc.perform(get("/auth/admin-roles")
                 .header("Authorization", "Bearer " + token))
                 .andExpect(status().isForbidden());
@@ -69,18 +69,18 @@ class AuthControllerIntegrationTest {
     @Test
     @DisplayName("Access user-roles endpoint with user token succeeds")
     void userRoles_withUserToken_succeeds() throws Exception {
-        String token = obtainToken("user1", "BACKDOOR");
+        String token = obtainToken("test-user", "password");
         mockMvc.perform(get("/auth/user-roles")
                 .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username").value("user1"))
+                .andExpect(jsonPath("$.username").value("test-user"))
                 .andExpect(jsonPath("$.roles").isArray());
     }
 
     @Test
     @DisplayName("Access user-roles endpoint with admin token is forbidden")
     void userRoles_withAdminToken_forbidden() throws Exception {
-        String token = obtainToken("admin1", "BACKDOOR");
+        String token = obtainToken("test-admin", "password");
         mockMvc.perform(get("/auth/user-roles")
                 .header("Authorization", "Bearer " + token))
                 .andExpect(status().isForbidden());

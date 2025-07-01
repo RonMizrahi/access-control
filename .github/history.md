@@ -1,9 +1,4 @@
-
 -------------------------------------------------------------------------------------
-Date: 2025-07-01
-User: add documentation (See <attachments> above for file contents. You may not need to search or read the file again.)
-Assistant: Added class-level and method-level Javadoc to SecurityConfig for clarity, maintainability, and alignment with Spring Boot 3.x best practices.
-
 -------------------------------------------------------------------------------------
 Date: 2025-07-01
 User: you forgot to ad the new properties to application.properties (See <attachments> above for file contents. You may not need to search or read the file again.)
