@@ -19,22 +19,53 @@ import com.example.accesscontrol.repository.UserRepository;
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
 
+
+    /**
+     * Provides a BCrypt password encoder bean.
+     *
+     * @return a PasswordEncoder instance
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+
+    /**
+     * Provides a UserDetailsService bean backed by the UserRepository.
+     *
+     * @param userRepository the user repository
+     * @return a UserDetailsService instance
+     */
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         return username -> userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
+
+    /**
+     * Provides a JwtAuthenticationFilter bean for JWT-based authentication.
+     *
+     * @param jwtUtil the JWT utility
+     * @param userDetailsService the user details service
+     * @return a JwtAuthenticationFilter instance
+     */
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(JwtUtil jwtUtil, UserDetailsService userDetailsService) {
         return new JwtAuthenticationFilter(jwtUtil, userDetailsService);
     }
 
+    /**
+     * Configures the security filter chain for HTTP requests.
+     *
+     * <p>Disables CSRF, permits /auth/**, and secures all other endpoints. Adds the JWT authentication filter before the username/password filter.</p>
+     *
+     * @param http the HttpSecurity instance
+     * @param jwtAuthenticationFilter the JWT authentication filter
+     * @return the configured SecurityFilterChain
+     * @throws Exception if a security configuration error occurs
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         http.csrf(csrf -> csrf.disable())
