@@ -11,6 +11,8 @@ import com.example.accesscontrol.config.JwtUtil;
 import com.example.accesscontrol.model.User;
 import com.example.accesscontrol.repository.UserRepository;
 
+import io.micrometer.observation.annotation.Observed;
+
 @Service
 public class AuthService {
     @Autowired
@@ -20,6 +22,7 @@ public class AuthService {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Observed(name = "auth.login", contextualName = "user-login")
     public String login(String username, String password) {
         Optional<User> userOpt = userRepository.findByUsername(username);
         if (userOpt.isPresent()) {
