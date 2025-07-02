@@ -1,6 +1,7 @@
 package com.example.accesscontrol.config;
 
 import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,25 +29,11 @@ public class VirtualThreadConfig {
     private static final Logger logger = LoggerFactory.getLogger(VirtualThreadConfig.class);
 
     /**
-     * Creates a TaskExecutor bean that uses virtual threads for async operations.
-     * 
-     * <p>This executor will be used by methods annotated with @Async to execute
-     * asynchronous operations on virtual threads instead of platform threads.</p>
-     * 
-     * @return TaskExecutor configured with virtual thread factory
-     */
-    @Bean("virtualThreadExecutor")
-    public Executor virtualThreadExecutor() {
-        logger.info("Configuring virtual thread executor for async operations");
-        
-        return java.util.concurrent.Executors.newVirtualThreadPerTaskExecutor();
-    }
-
-    /**
      * Creates the default TaskExecutor bean using virtual threads.
      * 
-     * <p>This will be used as the default executor for @Async methods
-     * when no specific executor is specified.</p>
+     * <p>This will be used as the default executor for all @Async methods.
+     * Virtual threads are lightweight and can be created in large numbers
+     * without the overhead of platform threads.</p>
      * 
      * @return Default TaskExecutor using virtual threads
      */
@@ -54,6 +41,6 @@ public class VirtualThreadConfig {
     public Executor taskExecutor() {
         logger.info("Configuring default task executor with virtual threads");
         
-        return java.util.concurrent.Executors.newVirtualThreadPerTaskExecutor();
+        return Executors.newVirtualThreadPerTaskExecutor();
     }
 }

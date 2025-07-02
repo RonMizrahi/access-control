@@ -21,25 +21,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class VirtualThreadConfigTest {
 
     @Autowired
-    @Qualifier("virtualThreadExecutor")
-    private Executor virtualThreadExecutor;
-
-    @Autowired
     @Qualifier("taskExecutor")
     private Executor taskExecutor;
-
-    @Test
-    @DisplayName("Virtual thread executor bean should be created and configured properly")
-    void virtualThreadExecutor_shouldBeConfigured() {
-        // Verify that the virtual thread executor bean is created
-        assertNotNull(virtualThreadExecutor, "Virtual thread executor should not be null");
-        
-        // Verify it's a virtual thread executor by checking its class
-        String executorClass = virtualThreadExecutor.getClass().getSimpleName();
-        assertTrue(executorClass.contains("VirtualThreadPerTaskExecutor") || 
-                  executorClass.contains("ThreadPerTaskExecutor"),
-                  "Executor should be a VirtualThreadPerTaskExecutor, but was: " + executorClass);
-    }
 
     @Test
     @DisplayName("Default task executor should use virtual threads")
