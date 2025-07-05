@@ -5,7 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -15,13 +15,12 @@ import org.springframework.test.web.servlet.MockMvc;
  * Tests both header-based and path-based versioning approaches.
  */
 @SpringBootTest
-@AutoConfigureWebMvc
+@AutoConfigureMockMvc
 class ApiVersionControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    
-    
+
     @Test
     void testPathBasedVersioningV1() throws Exception {
         mockMvc.perform(get("/api/v1/status")
