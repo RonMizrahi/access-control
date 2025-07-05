@@ -26,7 +26,7 @@ import com.example.accesscontrol.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-class RateLimitInterceptorTest {
+class SubscriptionRateLimitInterceptorTest {
     @Mock
     private UserRepository userRepository;
     @Mock
@@ -36,7 +36,7 @@ class RateLimitInterceptorTest {
     @Mock
     private UserDetails userDetails;
     @InjectMocks
-    private RateLimitInterceptor rateLimitInterceptor;
+    private SubscriptionRateLimitInterceptor rateLimitInterceptor;
 
     @BeforeEach
     void setUp() {

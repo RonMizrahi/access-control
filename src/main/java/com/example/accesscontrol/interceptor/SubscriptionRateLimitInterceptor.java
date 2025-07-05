@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class RateLimitInterceptor implements HandlerInterceptor {
+public class SubscriptionRateLimitInterceptor implements HandlerInterceptor {
     // user -> Bucket
     private final Map<String, Bucket> userBuckets = new ConcurrentHashMap<>();
 

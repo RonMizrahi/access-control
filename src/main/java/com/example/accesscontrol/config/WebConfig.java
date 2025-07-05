@@ -7,16 +7,16 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.example.accesscontrol.interceptor.RateLimitInterceptor;
+import com.example.accesscontrol.interceptor.SubscriptionRateLimitInterceptor;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     @Autowired
-    private RateLimitInterceptor rateLimitInterceptor;
+    private SubscriptionRateLimitInterceptor subscriptionRateLimitInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(rateLimitInterceptor)
+    registry.addInterceptor(subscriptionRateLimitInterceptor)
                 .addPathPatterns("/**");
                 //.excludePathPatterns("/auth/**");
     }
