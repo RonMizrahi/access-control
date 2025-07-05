@@ -46,7 +46,10 @@ class RequestResponseLoggingInterceptorTest {
         when(request.getRequestURI()).thenReturn("/api/test");
         when(request.getRemoteAddr()).thenReturn("127.0.0.1");
         when(request.getHeader("User-Agent")).thenReturn("Test-Agent");
-        
+        when(request.getHeader("X-Request-ID")).thenReturn(null);
+        when(request.getHeader("X-Forwarded-For")).thenReturn(null);
+        when(request.getHeader("X-Real-IP")).thenReturn(null);
+
         // When
         boolean result = interceptor.preHandle(request, response, handler);
         
@@ -71,7 +74,10 @@ class RequestResponseLoggingInterceptorTest {
         when(request.getRequestURI()).thenReturn("/api/create");
         when(request.getRemoteAddr()).thenReturn("192.168.1.100");
         when(request.getHeader("User-Agent")).thenReturn("Test-Client");
-        
+        when(request.getHeader("X-Request-ID")).thenReturn(null);
+        when(request.getHeader("X-Forwarded-For")).thenReturn(null);
+        when(request.getHeader("X-Real-IP")).thenReturn(null);
+
         // When
         boolean result = interceptor.preHandle(request, response, handler);
         
@@ -93,6 +99,9 @@ class RequestResponseLoggingInterceptorTest {
         when(request.getMethod()).thenReturn("GET");
         when(request.getRequestURI()).thenReturn("/api/forwarded");
         when(request.getHeader("User-Agent")).thenReturn("Proxy-Agent");
+        when(request.getHeader("X-Request-ID")).thenReturn(null);
+        when(request.getHeader("X-Forwarded-For")).thenReturn(null);
+        when(request.getHeader("X-Real-IP")).thenReturn(null);
         
         // When
         boolean result = interceptor.preHandle(request, response, handler);
