@@ -154,35 +154,39 @@ Run: `curl http://localhost:8080/actuator/health` and observe virtual thread usa
 - Created comprehensive documentation of auto-configuration features
 - Demo endpoints available at /api/demo/ for testing circuit breaker functionality
 
-### Unit 6: Add API Gateway Ready Features [Prepare for microservices] Status: ⚪ **NOT STARTED**
+### Unit 6: Add API Gateway Ready Features [Prepare for Kubernetes + 3rd party API gateway] Status: ⚪ **NOT STARTED**
 
 **Complexity**: STANDARD (5 points)
-**Purpose**: Add features needed for API gateway integration
+**Purpose**: Add features needed for 3rd party API gateway integration in Kubernetes environment
 
 **Changes**
-- [ ] Add service discovery client configuration
-- [ ] Implement request/response logging
-- [ ] Add correlation ID handling
-- [ ] Create API versioning support
-- [ ] Add OpenAPI 3 documentation
+- [ ] Implement enhanced request/response logging with correlation IDs
+- [ ] Add API versioning support via headers and path
+- [ ] Add OpenAPI 3 documentation with security schemas
+- [ ] Create Kubernetes-ready health probes (liveness/readiness)
+- [ ] Add graceful shutdown configuration
 
 **Success Criteria**
-- [ ] Service registers with discovery service
-- [ ] Request/response logging captures correlation IDs
-- [ ] API versioning works correctly
-- [ ] OpenAPI documentation generated
+- [ ] Request/response logging captures correlation IDs from headers
+- [ ] API versioning works via Accept header and path versioning
+- [ ] OpenAPI documentation includes JWT security schema
+- [ ] Kubernetes health probes respond correctly
+- [ ] Graceful shutdown works properly
 
 **Testing**
-[4 tests for STANDARD complexity unit]
-- [ ] Verify service discovery registration
-- [ ] Test correlation ID propagation
+[5 tests for STANDARD complexity unit]
+- [ ] Test correlation ID propagation through logging
 - [ ] Confirm API versioning routes correctly
 - [ ] Validate OpenAPI documentation accuracy
+- [ ] Verify health probe endpoints work
+- [ ] Test graceful shutdown behavior
 
 **Implementation Notes**
-- Use existing interceptor pattern from RateLimitInterceptor
-- Follow Spring Cloud LoadBalancer patterns
-- Integrate with existing security configuration
+- Use existing interceptor pattern for correlation ID handling
+- Leverage existing tracing infrastructure for correlation IDs
+- Focus on container and API gateway integration patterns
+- No service discovery needed - Kubernetes DNS handles this
+- No load balancer needed - Kubernetes Services handle this
 
 ## Polish Implementation Path Status: ⚪ **NOT STARTED**
 
