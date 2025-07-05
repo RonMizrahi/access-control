@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.accesscontrol.config.JwtUtil;
-import com.example.accesscontrol.model.User;
+import com.example.accesscontrol.model.entity.User;
 import com.example.accesscontrol.repository.UserRepository;
 
 import io.micrometer.observation.annotation.Observed;

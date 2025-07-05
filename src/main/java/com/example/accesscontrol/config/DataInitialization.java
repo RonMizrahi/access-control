@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.accesscontrol.model.Role;
 import com.example.accesscontrol.model.SubscriptionPlan;
-import com.example.accesscontrol.model.User;
+import com.example.accesscontrol.model.entity.User;
 import com.example.accesscontrol.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;

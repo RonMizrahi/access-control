@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.example.accesscontrol.model.SubscriptionPlan;
-import com.example.accesscontrol.model.User;
+import com.example.accesscontrol.model.entity.User;
 import com.example.accesscontrol.repository.UserRepository;
 
 import io.github.bucket4j.Bandwidth;
