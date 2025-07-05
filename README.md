@@ -83,6 +83,9 @@ management.endpoint.health.show-components=always
 - **Java 24+** (for virtual threads support)
 - **Maven 3.8+**
 
+#### Optional (for Distributed Tracing/Observability)
+- **Docker** (to run Zipkin for distributed tracing)
+
 ### Quick Start
 
 1. **Clone the repository**:
@@ -101,7 +104,17 @@ management.endpoint.health.show-components=always
    mvn spring-boot:run
    ```
 
-4. **Verify the setup**:
+4. **(Optional) Run Zipkin for Distributed Tracing**
+   
+  If you want to enable distributed tracing with Micrometer and OpenTelemetry, you need a tracing backend. This template is pre-configured for [Zipkin](https://zipkin.io/):
+   
+  ```bash
+  docker run -d -p 9411:9411 openzipkin/zipkin
+  ```
+   
+  The application will automatically send traces to `http://localhost:9411` when Zipkin is running.
+
+5. **Verify the setup**:
    ```bash
    # Check application health
    curl http://localhost:8080/actuator/health
