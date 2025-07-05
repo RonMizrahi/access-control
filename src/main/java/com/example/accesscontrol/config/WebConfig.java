@@ -1,7 +1,9 @@
 package com.example.accesscontrol.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestClient;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -17,5 +19,10 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(rateLimitInterceptor)
                 .addPathPatterns("/**");
                 //.excludePathPatterns("/auth/**");
+    }
+
+    @Bean
+    public RestClient restClient() {
+        return RestClient.create();
     }
 }

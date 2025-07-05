@@ -105,67 +105,54 @@ Run: `curl http://localhost:8080/actuator/health` and observe virtual thread usa
 - MDC integration for log correlation
 - User context from Spring Security automatically added to spans
 
-### Unit 4: Add Async Processing [Implement event-driven patterns] Status: ⚪ **NOT STARTED**
 
-**Complexity**: SMALL (3 points)
-**Purpose**: Enable asynchronous processing with virtual threads
+### Unit 4: Add Async Processing [Implement event-driven patterns] Status: 🚫 **WON'T DO**
 
-**Changes**
-- [ ] Create `src/main/java/com/example/accesscontrol/service/AsyncService.java`
-- [ ] Add @Async methods using virtual thread executor
-- [ ] Implement event publishing with ApplicationEventPublisher
-- [ ] Add async processing for non-critical operations
 
-**Success Criteria**
-- [ ] Async methods execute on virtual threads
-- [ ] Event publishing works without blocking
-- [ ] Non-critical operations processed asynchronously
-
-**Testing**
-[3 tests for SMALL complexity unit]
-- [ ] Verify async methods return CompletableFuture
-- [ ] Test event publishing and handling
-- [ ] Confirm virtual threads used for async execution
-
-**Implementation Notes**
-- Use existing pattern from AuthService for dependency injection
-- Implement retry mechanisms for async operations
-- Add proper error handling for async flows
+**Decision**: This unit will not be implemented in this template. Async/event-driven patterns are out of scope for the current project requirements. If needed, revisit in a future iteration.
 
 ## Enhancement Implementation Path Status: ⚪ **NOT STARTED**
 
-### Unit 5: Add Circuit Breaker Pattern [Implement resilience] Status: ⚪ **NOT STARTED**
+
+### Unit 5: Add Circuit Breaker Pattern [Implement resilience with resilience4j-spring-boot3] Status: ✅ **COMPLETED**
+
 
 **Tags**:
-- [NEEDS_MORE_RESEARCH] - Need to evaluate Resilience4j vs Spring Cloud Circuit Breaker
+- [SPRING-BOOT-3-NATIVE] - Uses resilience4j-spring-boot3 for native integration
 
 **Complexity**: STANDARD (4 points)
 **Purpose**: Add resilience patterns for external service calls
 
+
 **Changes**
-- [ ] Add Resilience4j dependencies to pom.xml
-- [ ] Create circuit breaker configuration
-- [ ] Implement circuit breaker for external API calls
-- [ ] Add fallback methods for degraded functionality
-- [ ] Create metrics for circuit breaker states
+- [x] Add `resilience4j-spring-boot3` dependency to pom.xml
+- [x] Annotate service methods with @CircuitBreaker and fallback
+- [x] No manual configuration classes needed
+- [x] Add fallback methods for degraded functionality
+- [x] Metrics and actuator integration enabled automatically
+- [x] Document what is auto-configured/applied by Spring Boot and resilience4j-spring-boot3 (e.g., actuator endpoints, metrics, default circuit breaker settings, annotation support)
 
 **Success Criteria**
-- [ ] Circuit breaker trips on repeated failures
-- [ ] Fallback methods provide degraded functionality
-- [ ] Metrics expose circuit breaker health
-- [ ] Recovery works when external service returns
+- [x] Circuit breaker trips on repeated failures
+- [x] Fallback methods provide degraded functionality
+- [x] Metrics expose circuit breaker health
+- [x] Recovery works when external service returns
 
 **Testing**
 [4 tests for STANDARD complexity unit]
-- [ ] Test circuit breaker opening on failures
-- [ ] Verify fallback methods are called
-- [ ] Confirm circuit breaker closes on recovery
-- [ ] Test metrics are properly exposed
+- [x] Test circuit breaker opening on failures
+- [x] Verify fallback methods are called
+- [x] Confirm circuit breaker closes on recovery
+- [x] Test metrics are properly exposed
+
 
 **Implementation Notes**
-- Follow configuration pattern from existing SecurityConfig
-- Integrate with actuator for circuit breaker metrics
-- Use annotation-based circuit breaker configuration
+- Used `resilience4j-spring-boot3` version 2.2.0 for Spring Boot 3.x native support
+- Just added the dependency and used @CircuitBreaker annotation on service methods
+- All configuration done in application.properties/yml - no manual config classes needed
+- Actuator endpoints and metrics are auto-configured automatically
+- Created comprehensive documentation of auto-configuration features
+- Demo endpoints available at /api/demo/ for testing circuit breaker functionality
 
 ### Unit 6: Add API Gateway Ready Features [Prepare for microservices] Status: ⚪ **NOT STARTED**
 
