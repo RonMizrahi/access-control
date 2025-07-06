@@ -40,6 +40,7 @@ docker compose logs -f app
 - Kafka: localhost:9092
 - Zipkin: http://localhost:9411
 - Adminer (DB GUI): http://localhost:8083
+![alt text](image.png)
 - Redis Commander: http://localhost:8081
 - Kafka UI: http://localhost:8082
 
