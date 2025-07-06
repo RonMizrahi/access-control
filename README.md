@@ -76,6 +76,41 @@ management.endpoint.health.show-details=when-authorized
 management.endpoint.health.show-components=always
 ```
 
+
+## 🚀 Docker Compose Usage
+
+### Stop and remove all containers, networks, and volumes:
+```sh
+docker compose --profile full down -v
+```
+
+### Build and start all services (in background):
+```sh
+docker compose --profile full up --build -d
+docker compose up --build -d app postgres redis kafka zipkin adminer redis-commander kafka-ui
+```
+
+
+### Stop all running services (keep data):
+```sh
+docker compose --profile full down
+```
+
+### View logs for a service:
+```sh
+docker compose logs -f <service>
+# Example: view app logs
+docker compose logs -f app
+```
+
+### Stop (remove) a single service:
+```sh
+docker compose stop <service>
+# Example: stop only postgres
+docker compose stop postgres
+```
+
+---
 ## 🚀 Getting Started
 
 ### Prerequisites
