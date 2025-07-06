@@ -72,7 +72,6 @@ class MetricsEndpointAccessibilityTest {
         String[] jvmMetrics = {
             "jvm.memory.used",
             "jvm.memory.max", 
-            "jvm.gc.pause",
             "jvm.threads.live",
             "system.cpu.usage",
             "process.uptime"

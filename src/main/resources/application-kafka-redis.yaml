@@ -1,5 +1,5 @@
 spring:
-  kafka:
+  kafka: # Kafka configuration - but it depends on the provider, this configuration is for Confluent Cloud
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     properties:
       sasl:
