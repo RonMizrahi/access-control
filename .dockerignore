@@ -1,0 +1,44 @@
+# Docker ignore file for Spring Boot template
+# Build artifacts
+target/
+!target/*.jar
+*.jar
+*.war
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+docs/
+scratchpads/
+
+# Test files
+src/test/
+
+# CI/CD
+.github/
+
+# Local configuration
+*.local
+.env.local
+application-local.*
