@@ -20,7 +20,7 @@ services:
   # Development PostgreSQL with sample data
   postgres:
     volumes:
-      - ./docker/postgres/dev-data.sql:/docker-entrypoint-initdb.d/dev-data.sql
+      - ./docker/postgres/init-sql-schema.sql:/docker-entrypoint-initdb.d/init-sql-schema.sql
 
   # Redis with persistence disabled for faster development
   redis:
