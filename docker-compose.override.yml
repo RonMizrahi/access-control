@@ -1,0 +1,26 @@
+# Development override for Docker Compose
+# This file extends docker-compose.yml for development-specific settings
+services:
+  app:
+    build:
+      context: .
+      target: runtime
+    volumes:
+      # Enable hot reload (if using devtools)
+      - ./target/classes:/app/classes:ro
+    environment:
+      - JAVA_OPTS=-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=*:5005 -Dspring.devtools.restart.enabled=true
+      - SPRING_DEVTOOLS_RESTART_ENABLED=true
+    ports:
+      - "8080:8080"
+      - "5005:5005"  # Debug port
+    restart: unless-stopped
+
+  # Development PostgreSQL with sample data
+  postgres:
+    volumes:
+      - ./docker/postgres/dev-data.sql:/docker-entrypoint-initdb.d/dev-data.sql
+
+  # Redis with persistence disabled for faster development
+  redis:
+    command: redis-server --save ""

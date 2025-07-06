@@ -1,0 +1,57 @@
+# PostgreSQL profile configuration
+spring:
+  config:
+    activate:
+      on-profile: postgres
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:springdb}
+    username: ${POSTGRES_USER:spring}
+    password: ${POSTGRES_PASSWORD:spring123}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        '[format_sql]': true
+        jdbc:
+          '[time_zone]': UTC
+
+# Redis configuration for external Redis
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      timeout: 2000ms
+      jedis:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+
+# Kafka configuration for external Kafka
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: ${KAFKA_CONSUMER_GROUP:template-group}
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+# Zipkin configuration for external Zipkin
+management:
+  zipkin:
+    tracing:
+      endpoint: ${ZIPKIN_ENDPOINT:http://localhost:9411/api/v2/spans}
+
+logging:
+  level:
+    '[org.springframework.kafka]': INFO
+    '[org.springframework.data.redis]': INFO
+    '[org.postgresql]': INFO
