@@ -126,3 +126,4 @@ logging:
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [%t] %-40.40logger{39} : %m%n"
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
