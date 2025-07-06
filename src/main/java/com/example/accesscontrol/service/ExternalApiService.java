@@ -25,8 +25,8 @@ public class ExternalApiService {
     public String callExternalApi(String endpoint) {
         log.info("Calling external API: {}", endpoint);
         
-        // Simulate external API call - this could fail
         try {
+            // Simulate external API call - this could fail
             String response = restClient.get()
                     .uri(endpoint)
                     .retrieve()
@@ -48,6 +48,7 @@ public class ExternalApiService {
     public String fallbackResponse(String endpoint, Throwable throwable) {
         log.warn("Circuit breaker fallback triggered for endpoint: {}, reason: {}", 
                 endpoint, throwable.getMessage());
+        
         return "Service temporarily unavailable. Please try again later.";
     }
 
@@ -59,6 +60,7 @@ public class ExternalApiService {
     @Observed(name = "failing.service.call", contextualName = "failing-service-demo")
     public String callFailingService() {
         log.info("Calling failing service (demo)");
+        
         throw new RuntimeException("Service is down for maintenance");
     }
 
@@ -69,6 +71,7 @@ public class ExternalApiService {
      */
     public String failingServiceFallback(Throwable throwable) {
         log.warn("Failing service fallback triggered: {}", throwable.getMessage());
+        
         return "Demo service is currently unavailable - this is expected behavior for testing";
     }
 }
